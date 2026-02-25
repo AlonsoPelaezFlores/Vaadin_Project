@@ -1,0 +1,16 @@
+2026-02-25 07:58:33.884065+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; se esperaba "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id)) [42001-240]
+2026-02-25 07:58:36.751681+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; se esperaba "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id)) [42001-240]
+2026-02-25 07:59:13.683872+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; se esperaba "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id)) [42001-240]
+2026-02-25 08:03:34.468201+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; se esperaba "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, name varchar(255), lastname varchar(255), age integer, primary key (id)) [42001-240]
