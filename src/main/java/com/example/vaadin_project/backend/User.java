@@ -1,24 +1,20 @@
 package com.example.vaadin_project.backend;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String name;
         private String lastname;
-        private Integer age;
+        private int age;
 
-        public User() {
-
-        }
 }
