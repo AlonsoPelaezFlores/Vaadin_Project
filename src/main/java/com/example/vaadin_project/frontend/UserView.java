@@ -1,8 +1,8 @@
 package com.example.vaadin_project.frontend;
 
-import com.example.vaadin_project.backend.ServiceUser;
+import com.example.vaadin_project.backend.UserService;
 import com.example.vaadin_project.backend.User;
-import com.example.vaadin_project.backend.UserDTO;
+import com.example.vaadin_project.backend.CreateUserDTO;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -14,22 +14,23 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 
-
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "users", layout = MainLayout.class)
 @PageTitle("Home User")
+@PermitAll
 public class UserView extends VerticalLayout {
 
-    private final ServiceUser serviceUser;
+    private final UserService userService;
     private final Grid<User> grid = new Grid<>(User.class,false);
 
-    public UserView(ServiceUser userService){
-        this.serviceUser = userService;
-        Button addUserBtn = new Button("Agregar", buttonClickEvent -> {
+    public UserView(UserService userService){
+        this.userService = userService;
+        Button addUserBtn = new Button("Add", buttonClickEvent -> {
             openUserDialog(null);
         });
-        addUserBtn.addThemeVariants(ButtonVariant.AURA_PRIMARY);
+        addUserBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         addUserBtn.getStyle().setMarginRight("1rem");
 
         HorizontalLayout layout = new HorizontalLayout();
@@ -43,7 +44,7 @@ public class UserView extends VerticalLayout {
         add(layout,grid);
     }
     private void refreshItems(){
-        grid.setItems(serviceUser.findAll());
+        grid.setItems(userService.findAll());
     }
 
     private Grid<User> createGridUser() {
@@ -51,72 +52,81 @@ public class UserView extends VerticalLayout {
         grid.addColumn(User::getId).
                 setHeader("ID").setTextAlign(ColumnTextAlign.CENTER).setSortable(true);
         grid.addColumn(User::getName)
-                .setHeader("Nombre").setTextAlign(ColumnTextAlign.CENTER);
+                .setHeader("Name").setTextAlign(ColumnTextAlign.CENTER);
         grid.addColumn(User::getLastname)
-                .setHeader("Apellido").setTextAlign(ColumnTextAlign.CENTER);
-        grid.addColumn(User::getAge)
-                .setHeader("Edad").setSortable(true).setTextAlign(ColumnTextAlign.CENTER);
-        grid.addColumn(u -> u.getAge() >= 18)
-                .setHeader("Es mayor de edad? ").setTextAlign(ColumnTextAlign.CENTER);
+                .setHeader("Lastname").setTextAlign(ColumnTextAlign.CENTER);
+        grid.addColumn(User::getEmail)
+                .setHeader("Email").setTextAlign(ColumnTextAlign.CENTER);
+        grid.addColumn(User::getRole)
+                .setHeader("Role").setTextAlign(ColumnTextAlign.CENTER);
 
         grid.addComponentColumn(user -> {
 
             Button btnModify = new Button(VaadinIcon.EDIT.create(), btnModifyClickEvent -> {
-                openUserDialog(user);
+                openUserDialog(null);
             });
             btnModify.getStyle().setColor("#DEDB7C");
             Button btnDelete = new Button(VaadinIcon.TRASH.create(), btnDeleteClickEvent -> {
-                deleteUser(user.getId());
+                //deleteUser(user.getId());
             });
-            btnDelete.addThemeVariants(ButtonVariant.AURA_DANGER);
+            btnDelete.addThemeVariants(ButtonVariant.LUMO_ERROR);
             HorizontalLayout group = new HorizontalLayout();
             group.setPadding(true);
             group.add(btnModify,btnDelete);
             group.getStyle().setMarginLeft("2rem");
             return group;
-        }).setHeader("Acciones").setTextAlign(ColumnTextAlign.CENTER);
+        }).setHeader("Actions").setTextAlign(ColumnTextAlign.CENTER);
         return grid;
     }
 
     private void deleteUser(Long userId) {
-        serviceUser.delete(userId);
-        Notification.show("Se ha eliminado al usuario con ID " + userId,3000, Notification.Position.TOP_END);
+        userService.delete(userId);
+        Notification.show("A user with ID %d has been deleted ".formatted(userId),3000, Notification.Position.TOP_END);
         refreshItems();
     }
 
     private void openUserDialog(User user){
 
         Dialog dialog = new Dialog();
-        dialog.setHeaderTitle(user!=null? "Modificando Usuario":"Agregar un nuevo usuario");
+        dialog.setHeaderTitle(user!=null? "Modifying User":"Adding New User");
         dialog.setWidth("400px");
         dialog.setHeight("350px");
 
         UserForm userForm = new UserForm();
-        userForm.setUser(user);
+        //userForm.setUser(user);
 
         dialog.add(userForm);
 
-        Button btnCancel = new Button("Cancelar", e -> dialog.close());
+        Button btnCancel = new Button("Cancel", e -> dialog.close());
+        Button btnSave = new Button("Save", e -> dialog.close());
 
         dialog.getFooter().add(btnCancel);
-        dialog.getFooter().add(createSaveButton(userForm,dialog));
+        dialog.getFooter().add(btnSave);
 
         dialog.open();
     }
 
-    private Button createSaveButton(UserForm userForm, Dialog dialog) {
-        return new Button("Aceptar", e -> {
+/*     private Button createSaveButton(UserForm userForm, Dialog dialog) {
+        return new Button("Save", e -> {
             if (userForm.save()){
                 User user = userForm.getUser();
-                UserDTO dto = new UserDTO(user.getName(),user.getLastname(),user.getAge());
+
+                CreateUserDTO dto = CreateUserDTO.builder()
+                        .name(user.getName())
+                        .lastname(user.getLastname())
+                        .email(user.getEmail())
+                        .password(user.getPassword())
+                        .birthday(user.getBirthday())
+                        .build();
+
                 if (user.getId()==null){
-                    serviceUser.create(dto);
-                    Notification.show("Se ha creado un nuevo usuario",3000, Notification.Position.TOP_END);
+                    userService.create(dto);
+                    Notification.show("A new user has been created",3000, Notification.Position.TOP_END);
                     refreshItems();
                 }else {
-                    serviceUser.modify(user.getId(),dto);
+                    userService.modify(user.getId(),dto);
 
-                    Notification.show("Se ha modificado el usuario con Id "+user.getId(),
+                    Notification.show("A user with ID %d has been modified ".formatted(user.getId()),
                                     3000, Notification.Position.TOP_END);
                     refreshItems();
                 }
@@ -124,4 +134,5 @@ public class UserView extends VerticalLayout {
             }
         });
     }
+    */
 }

@@ -2,14 +2,12 @@ package com.example.vaadin_project;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
-import com.vaadin.flow.theme.aura.Aura;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@StyleSheet(Aura.STYLESHEET)
 @StyleSheet("styles.css")
 @SpringBootApplication
-public class VaadinProjectApplication implements AppShellConfigurator {
+public class VaadinProjectApplication implements AppShellConfigurator{
 
     public static void main(String[] args) {
         SpringApplication.run(VaadinProjectApplication.class, args);
