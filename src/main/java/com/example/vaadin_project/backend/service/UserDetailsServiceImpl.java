@@ -1,10 +1,16 @@
-package com.example.vaadin_project.backend;
+package com.example.vaadin_project.backend.service;
 
+import com.example.vaadin_project.backend.repo.UserRepository;
+import com.example.vaadin_project.backend.entity.User;
+import com.example.vaadin_project.backend.entity.UserPrincipal;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -18,10 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole().name())
-                .build();
+        return new UserPrincipal(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 }

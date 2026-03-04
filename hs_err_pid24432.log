@@ -19,7 +19,7 @@
 Command Line: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:59046,suspend=y,server=n -javaagent:C:\Users\alonso.pelaez\AppData\Local\JetBrains\IntelliJIdea2025.3\captureAgent\debugger-agent.jar=file:///C:/Users/ALONSO~1.PEL/AppData/Local/Temp/capture2252280362822833833.props -agentpath:C:\Users\alonso.pelaez\AppData\Local\Temp\idea_libasyncProfiler_dll_temp_folder8\libasyncProfiler.dll=version,jfr,event=wall,interval=10ms,cstack=no,file=C:\Users\alonso.pelaez\IdeaSnapshots\VaadinProjectApplication_2026_02_27_123341.jfr,dbghelppath=C:\Users\alonso.pelaez\AppData\Local\Temp\idea_dbghelp_dll_temp_folder\dbghelp.dll,log=C:\Users\alonso.pelaez\AppData\Local\Temp\VaadinProjectApplication_2026_02_27_123341.jfr.log.txt,logLevel=DEBUG -XX:TieredStopAtLevel=1 -Dspring.output.ansi.enabled=always -Dcom.sun.management.jmxremote -Dspring.jmx.enabled=true -Dspring.liveBeansView.mbeanDomain -Dspring.application.admin.enabled=true -Dmanagement.endpoints.jmx.exposure.include=* -Dvaadin.copilot.pluginDotFilePath=C:\Users\alonso.pelaez\IdeaProjects\Vaadin_Project\.idea\.copilot-plugin --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.desktop/java.beans=ALL-UNNAMED --add-opens=java.desktop/com.sun.beans=ALL-UNNAMED --add-opens=java.desktop/com.sun.beans.introspect=ALL-UNNAMED --add-opens=java.desktop/com.sun.beans.util=ALL-UNNAMED --add-opens=java.base/jdk.internal.loader=ALL-UNNAMED -XX:+AllowEnhancedClassRedefinition -XX:+ClassUnloading -javaagent:C:\Users\alonso.pelaez\.vaadin\intellij-plugin\hotswap-agent.jar -Dkotlinx.coroutines.debug.enable.creation.stack.trace=false -Ddebugger.agent.enable.coroutines=true -Dkotlinx.coroutines.debug.enable.flows.stack.trace=true -Dkotlinx.coroutines.debug.enable.mutable.state.flows.stack.trace=true -Ddebugger.async.stack.trace.for.all.threads=true -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 com.example.vaadin_project.VaadinProjectApplication
 
 Host: Intel(R) Core(TM) Ultra 5 225U, 14 cores, 15G,  Windows 11 , 64 bit Build 26100 (10.0.26100.7705)
-Time: Fri Feb 27 12:37:25 2026 Hora estándar romance elapsed time: 223.100253 seconds (0d 0h 3m 43s)
+Time: Fri Feb 27 12:37:25 2026 Hora estï¿½ndar romance elapsed time: 223.100253 seconds (0d 0h 3m 43s)
 
 ---------------  T H R E A D  ---------------
 
@@ -93,7 +93,7 @@ org.springframework.security.core.userdetails.UserDetailsService {0x000001bb2543
  - ---- static fields (0 words):
  - ---- non-static fields (0 words):
  - non-static oop maps: 
-RCX=0x00000007177422e8 is an oop: com.example.vaadin_project.backend.UserDetailsServiceImpl 
+RCX=0x00000007177422e8 is an oop: com.example.vaadin_project.backend.service.UserDetailsServiceImpl
 {0x00000007177422e8} - klass: 'com/example/vaadin_project/backend/UserDetailsServiceImpl'
  - ---- fields (total size 2 words):
  - private final 'userRepository' 'Lcom/example/vaadin_project/backend/UserRepository;' @12  a 'jdk/proxy2/$Proxy167'{0x000000070c977ec0} (0xe192efd8)
@@ -181,7 +181,7 @@ java.lang.invoke.DirectMethodHandle {0x000001bb230d9120}
  - final 'member' 'Ljava/lang/invoke/MemberName;' @32 
  - non-static oop maps: 16-32 
 R8 =0x000001bb25f17830 is a pointer to class: 
-com.example.vaadin_project.backend.UserDetailsServiceImpl {0x000001bb25f17838}
+com.example.vaadin_project.backend.service.UserDetailsServiceImpl {0x000001bb25f17838}
  - instance size:     2
  - klass size:        76
  - access:            public synchronized 
@@ -223,7 +223,7 @@ R9 =0x00000007096fd490 is an oop: java.lang.invoke.MemberName
  - private 'method' 'Ljava/lang/invoke/ResolvedMethodName;' @36  a 'java/lang/invoke/ResolvedMethodName'{0x00000007096fd4c0} (0xe12dfa98)
  - 'resolution' 'Ljava/lang/Object;' @40  null (0x00000000)
 R10=0x000001bb25f17830 is a pointer to class: 
-com.example.vaadin_project.backend.UserDetailsServiceImpl {0x000001bb25f17838}
+com.example.vaadin_project.backend.service.UserDetailsServiceImpl {0x000001bb25f17838}
  - instance size:     2
  - klass size:        76
  - access:            public synchronized 
@@ -331,7 +331,7 @@ Instructions: (pc=0x000001bb16b9958b)
 
 Stack slot to memory mapping:
 
-stack at sp + 0 slots: 0x00000007177422e8 is an oop: com.example.vaadin_project.backend.UserDetailsServiceImpl 
+stack at sp + 0 slots: 0x00000007177422e8 is an oop: com.example.vaadin_project.backend.service.UserDetailsServiceImpl
 {0x00000007177422e8} - klass: 'com/example/vaadin_project/backend/UserDetailsServiceImpl'
  - ---- fields (total size 2 words):
  - private final 'userRepository' 'Lcom/example/vaadin_project/backend/UserRepository;' @12  a 'jdk/proxy2/$Proxy167'{0x000000070c977ec0} (0xe192efd8)
@@ -921,11 +921,11 @@ Event: 0.324 Thread 0x000001bb21f1a480 redefined class name=java.lang.BootstrapM
 Event: 0.324 Thread 0x000001bb21f1a480 redefined class name=java.lang.ArrayStoreException, count=1
 Event: 0.324 Thread 0x000001bb21f1a480 redefined class name=java.lang.InterruptedException, count=1
 Event: 0.324 Thread 0x000001bb21f1a480 redefined class name=java.io.IOException, count=1
-Event: 88.632 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.config, count=1
-Event: 88.632 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.config$$SpringCGLIB$$0, count=1
-Event: 91.221 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.config, count=2
-Event: 91.221 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.config$$SpringCGLIB$$0, count=2
-Event: 221.373 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.UserDetailsServiceImpl, count=1
+Event: 88.632 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.config.config, count=1
+Event: 88.632 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.config.config$$SpringCGLIB$$0, count=1
+Event: 91.221 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.config.config, count=2
+Event: 91.221 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.config.config$$SpringCGLIB$$0, count=2
+Event: 221.373 Thread 0x000001bb21f1a480 redefined class name=com.example.vaadin_project.backend.service.UserDetailsServiceImpl, count=1
 
 Internal exceptions (20 events):
 Event: 221.369 Thread 0x000001bb2231ab10 Exception <a 'sun/nio/fs/WindowsException'{0x0000000716144a28}> (0x0000000716144a28) 
@@ -1457,7 +1457,7 @@ Class org.hotswap.agent.plugin.weld_jakarta.command.BeanClassRefreshCommand     
 Class org.hotswap.agent.plugin.proxy.hscglib.GeneratorParametersTransformer           : loaded 3 times (x 71B)
 Class org.hotswap.agent.plugin.spring.boot.env.v2.LowVersionPropertiesPropertySourceLoader: loaded 3 times (x 78B)
 Class org.hotswap.agent.plugin.jvm.AnonymousClassPatchPlugin$1                        : loaded 3 times (x 82B)
-Class com.example.vaadin_project.config                                               : loaded 3 times (x 93B)
+Class com.example.vaadin_project.backend.config.config                                               : loaded 3 times (x 93B)
 Class org.hotswap.agent.plugin.sponge.SpongePlugin                                    : loaded 3 times (x 72B)
 Class org.hotswap.agent.plugin.ibatis.IBatisPlugin                                    : loaded 3 times (x 75B)
 Class org.hotswap.agent.plugin.spring.boot.transformers.PropertySourceLoaderTransformer: loaded 3 times (x 71B)
@@ -1579,7 +1579,7 @@ Class org.hotswap.agent.plugin.weld.beans.WeldHotswapContext                    
 Class org.hotswap.agent.plugin.proxy.api.MultistepProxyTransformer                    : loaded 3 times (x 88B)
 Class org.hotswap.agent.plugin.elresolver.PurgeBeanELResolverCacheCommand             : loaded 3 times (x 79B)
 Class org.hotswap.agent.plugin.spring.transformers.ResourcePropertySourceTransformer  : loaded 3 times (x 71B)
-Class com.example.vaadin_project.config$$SpringCGLIB$$0                               : loaded 3 times (x 99B)
+Class com.example.vaadin_project.backend.config.config$$SpringCGLIB$$0                               : loaded 3 times (x 99B)
 Class org.hotswap.agent.plugin.mybatis.proxy.SpringMapperFactoryBean                  : loaded 3 times (x 71B)
 Class org.hotswap.agent.plugin.undertow.UndertowPlugin                                : loaded 3 times (x 72B)
 Class org.hotswap.agent.plugin.cxf.jaxrs.CxfJAXRSPlugin                               : loaded 3 times (x 79B)
@@ -1619,7 +1619,7 @@ Class java.lang.ClassNotFoundException                                          
 Class java.lang.Exception                                                             : loaded 2 times (x 82B)
 Class java.io.IOException                                                             : loaded 2 times (x 82B)
 Class java.lang.ArrayStoreException                                                   : loaded 2 times (x 82B)
-Class com.example.vaadin_project.backend.UserDetailsServiceImpl                       : loaded 2 times (x 76B)
+Class com.example.vaadin_project.backend.service.UserDetailsServiceImpl                       : loaded 2 times (x 76B)
 Class java.lang.OutOfMemoryError                                                      : loaded 2 times (x 82B)
 Class java.lang.Throwable                                                             : loaded 2 times (x 82B)
 Class java.lang.InternalError                                                         : loaded 2 times (x 82B)

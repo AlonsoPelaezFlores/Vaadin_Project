@@ -1,11 +1,13 @@
-package com.example.vaadin_project.frontend;
+package com.example.vaadin_project.ui.views;
 
-import com.example.vaadin_project.backend.UserService;
-import com.example.vaadin_project.backend.User;
-import com.example.vaadin_project.backend.CreateUserDTO;
+import com.example.vaadin_project.backend.service.UserService;
+import com.example.vaadin_project.backend.entity.User;
+import com.example.vaadin_project.ui.layouts.MainLayout;
+import com.example.vaadin_project.ui.forms.UserModifyForm;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -14,34 +16,24 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 
-@Route(value = "users", layout = MainLayout.class)
-@PageTitle("Home User")
-@PermitAll
-public class UserView extends VerticalLayout {
+@Route(value = "admin", layout = MainLayout.class)
+@PageTitle("Admin")
+@RolesAllowed("ADMIN")
+public class AdminView extends VerticalLayout{
 
     private final UserService userService;
     private final Grid<User> grid = new Grid<>(User.class,false);
 
-    public UserView(UserService userService){
+    public AdminView(UserService userService){
         this.userService = userService;
-        Button addUserBtn = new Button("Add", buttonClickEvent -> {
-            openUserDialog(null);
-        });
-        addUserBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        addUserBtn.getStyle().setMarginRight("1rem");
-
-        HorizontalLayout layout = new HorizontalLayout();
-        layout.setWidthFull();
-        layout.add(addUserBtn);
-        layout.setJustifyContentMode(JustifyContentMode.END);
 
         Grid<User> grid = createGridUser();
+        expand(grid);
         refreshItems();
-        grid.setSizeFull();
-        add(layout,grid);
+        add(grid);
     }
     private void refreshItems(){
         grid.setItems(userService.findAll());
@@ -63,17 +55,15 @@ public class UserView extends VerticalLayout {
         grid.addComponentColumn(user -> {
 
             Button btnModify = new Button(VaadinIcon.EDIT.create(), btnModifyClickEvent -> {
-                openUserDialog(null);
+                openUserDialog(user);
             });
             btnModify.getStyle().setColor("#DEDB7C");
-            Button btnDelete = new Button(VaadinIcon.TRASH.create(), btnDeleteClickEvent -> {
-                //deleteUser(user.getId());
-            });
-            btnDelete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+            Button btnDelete = new Button(VaadinIcon.TRASH.create(), e  -> deleteUser(user.getId()));
+            btnDelete.addThemeVariants(ButtonVariant.LUMO_ERROR)
+            ;
             HorizontalLayout group = new HorizontalLayout();
             group.setPadding(true);
             group.add(btnModify,btnDelete);
-            group.getStyle().setMarginLeft("2rem");
             return group;
         }).setHeader("Actions").setTextAlign(ColumnTextAlign.CENTER);
         return grid;
@@ -88,51 +78,36 @@ public class UserView extends VerticalLayout {
     private void openUserDialog(User user){
 
         Dialog dialog = new Dialog();
-        dialog.setHeaderTitle(user!=null? "Modifying User":"Adding New User");
-        dialog.setWidth("400px");
-        dialog.setHeight("350px");
+        dialog.setHeaderTitle("Modify User");
+        dialog.setWidth("450px");
+        dialog.setHeight("auto");
 
-        UserForm userForm = new UserForm();
-        //userForm.setUser(user);
+        UserModifyForm userModifyForm = new UserModifyForm();
+        userModifyForm.setResponsiveSteps(new FormLayout.ResponsiveStep("0",1));
+        userModifyForm.setUser(user);
 
-        dialog.add(userForm);
+        dialog.add(userModifyForm);
 
         Button btnCancel = new Button("Cancel", e -> dialog.close());
-        Button btnSave = new Button("Save", e -> dialog.close());
+
+        Button btnSave = createSaveButton(userModifyForm,dialog);
+        btnSave.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         dialog.getFooter().add(btnCancel);
         dialog.getFooter().add(btnSave);
 
         dialog.open();
     }
-
-/*     private Button createSaveButton(UserForm userForm, Dialog dialog) {
+    private Button createSaveButton(UserModifyForm userModifyForm, Dialog dialog) {
         return new Button("Save", e -> {
-            if (userForm.save()){
-                User user = userForm.getUser();
+            if (userModifyForm.save()){
 
-                CreateUserDTO dto = CreateUserDTO.builder()
-                        .name(user.getName())
-                        .lastname(user.getLastname())
-                        .email(user.getEmail())
-                        .password(user.getPassword())
-                        .birthday(user.getBirthday())
-                        .build();
-
-                if (user.getId()==null){
-                    userService.create(dto);
-                    Notification.show("A new user has been created",3000, Notification.Position.TOP_END);
-                    refreshItems();
-                }else {
-                    userService.modify(user.getId(),dto);
-
-                    Notification.show("A user with ID %d has been modified ".formatted(user.getId()),
+                userService.modifyUserInformation(userModifyForm.getUser());
+                Notification.show("A user with ID %d has been modified ".formatted(userModifyForm.getUser().getId()),
                                     3000, Notification.Position.TOP_END);
-                    refreshItems();
+                refreshItems();
                 }
                 dialog.close();
-            }
         });
     }
-    */
 }

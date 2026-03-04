@@ -1,4 +1,4 @@
-package com.example.vaadin_project.frontend;
+package com.example.vaadin_project.ui.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@Route("")
+@Route(value = "", autoLayout = false)
 @AnonymousAllowed
 public class HomeView extends VerticalLayout {
     public HomeView() {
@@ -24,7 +24,6 @@ public class HomeView extends VerticalLayout {
         LoginOverlay loginOverlay = new LoginOverlay();
         add(loginOverlay);
         Button loginButton = new Button("Login", e ->
-                //loginOverlay.setOpened(true)
                 getUI().ifPresent(ui -> ui.navigate("login"))
         );
 
