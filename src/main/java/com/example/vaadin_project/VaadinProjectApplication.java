@@ -4,8 +4,8 @@ import com.example.vaadin_project.backend.dto.CreateUserDTO;
 import com.example.vaadin_project.backend.entity.Role;
 import com.example.vaadin_project.backend.repo.UserRepository;
 import com.example.vaadin_project.backend.service.UserService;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 
-@StyleSheet("styles.css")
+@Theme("principal")
 @SpringBootApplication
 public class VaadinProjectApplication implements AppShellConfigurator{
 

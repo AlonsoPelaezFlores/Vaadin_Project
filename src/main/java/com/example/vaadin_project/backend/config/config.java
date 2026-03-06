@@ -23,6 +23,7 @@ public class config extends VaadinWebSecurity {
         );
         http.exceptionHandling(ex ->
                 ex.accessDeniedPage("/access-denied"));
+
     }
     @Bean
     public AuthenticationSuccessHandler successHandler(){

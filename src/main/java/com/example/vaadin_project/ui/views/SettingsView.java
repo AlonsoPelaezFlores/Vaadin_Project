@@ -48,10 +48,12 @@ public class SettingsView extends VerticalLayout {
         setMaxWidth("50%");
         setWidth("100%");
         getStyle()
-                .set("margin-left", "auto")
-                .set("margin-right", "auto");
+                .set("margin", "auto");
+        VerticalLayout layout = new VerticalLayout(buildPersonalSection(),buildPasswordSection());
+        layout.getStyle().setBackground("#ffffff");
+        layout.getStyle().setBorderRadius("8px");
+        add(layout);
 
-        add(buildPersonalSection(), buildPasswordSection());
     }
 
     private void setUpBinder() {
@@ -101,10 +103,10 @@ public class SettingsView extends VerticalLayout {
         dialogLastname.setReadOnly(true);
 
         binderUserModifyForm.forField(dialogEmail)
-                .asRequired("El email es obligatorio")
+                .asRequired("The email is required")
                 .bind(UserProfileDTO::getEmail,UserProfileDTO::setEmail);
         binderUserModifyForm.forField(dialogBirthday)
-                .asRequired("La fecha de nacimiento es obligatorio")
+                .asRequired("The birthday is required")
                 .bind(UserProfileDTO::getBirthday, UserProfileDTO::setBirthday);
 
         dialogForm.add(new FormLayout(dialogName,dialogLastname,dialogEmail,dialogBirthday));
@@ -127,15 +129,16 @@ public class SettingsView extends VerticalLayout {
 
     private void onSavePersonalInformation(Dialog dialog){
 
-        try{
-            UserProfileDTO userSaved = new UserProfileDTO();
-            userSaved.setId(currentUser.getId());
-            binderUserModifyForm.writeBean(userSaved);
-            userService.modifyPersonalInformation(userSaved);
-            Notification.show("User modified successfully");
-            dialog.close();
-        }catch (Exception e){
-            Notification.show("Validation error: " + e.getMessage());
+        UserProfileDTO userSaved = new UserProfileDTO();
+        userSaved.setId(currentUser.getId());
+        if (binderUserModifyForm.writeBeanIfValid(userSaved)) {
+            try {
+                userService.modifyPersonalInformation(userSaved);
+                Notification.show("User modified successfully");
+                dialog.close();
+            } catch (Exception e) {
+                Notification.show("Error: " + e.getMessage());
+            }
         }
     }
 
