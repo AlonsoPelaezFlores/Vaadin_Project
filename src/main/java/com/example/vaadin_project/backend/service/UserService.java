@@ -7,6 +7,7 @@ import com.example.vaadin_project.backend.dto.UserProfileDTO;
 import com.example.vaadin_project.backend.entity.User;
 import com.example.vaadin_project.backend.entity.UserPrincipal;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,15 +35,12 @@ public class UserService {
     }
     public List<User> findAll(){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = userPrincipal.getUsername();
-        return userRepository.findAllByEmailNot(email);
+        Long userId= userPrincipal.getId();
+        return userRepository.findAllByIdNotOrderByIdAsc(userId);
     }
 
     public User findById(Long id){
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
-    }
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("User not Found"));
     }
 
     public void create(CreateUserDTO createUserDTO){
@@ -83,14 +81,18 @@ public class UserService {
         String confirmPassword = passwordDTO.confirmPassword();
 
         if (!passwordEncoder.matches(password, user.getPassword())){
-            Notification.show("Contraseña incorrecta");
+            Notification.show("The password is incorrect")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
             return false;
         }
         if (!newPassword.equals(confirmPassword)){
-            Notification.show("La nueva contraseña no coinciden");
+            Notification.show("The password doesn't match")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
             return false;
         }
         user.setPassword(passwordEncoder.encode(newPassword));
+        Notification.show("The password has been saved")
+                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         userRepository.save(user);
         return true;
     }

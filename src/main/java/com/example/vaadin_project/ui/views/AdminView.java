@@ -10,10 +10,12 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
@@ -30,7 +32,7 @@ public class AdminView extends VerticalLayout{
     public AdminView(UserService userService){
         this.userService = userService;
 
-        Grid<User> grid = createGridUser();
+        createGridUser();
         expand(grid);
         refreshItems();
         add(grid);
@@ -39,11 +41,17 @@ public class AdminView extends VerticalLayout{
         grid.setItems(userService.findAll());
     }
 
-    private Grid<User> createGridUser() {
+    private void createGridUser() {
 
         grid.addColumn(User::getId).
                 setHeader("ID").setTextAlign(ColumnTextAlign.CENTER).setSortable(true);
         grid.addColumn(User::getName)
+                .setRenderer(new ComponentRenderer<>( u -> {
+                    Span span = new Span(u.getName());
+                    span.getStyle().set("font-weight", "600");
+                    span.getStyle().set("color", "#0f172a");
+                    return span;
+                }))
                 .setHeader("Name").setTextAlign(ColumnTextAlign.CENTER);
         grid.addColumn(User::getLastname)
                 .setHeader("Lastname").setTextAlign(ColumnTextAlign.CENTER);
@@ -54,19 +62,18 @@ public class AdminView extends VerticalLayout{
 
         grid.addComponentColumn(user -> {
 
-            Button btnModify = new Button(VaadinIcon.EDIT.create(), btnModifyClickEvent -> {
-                openUserDialog(user);
-            });
-            btnModify.getStyle().setColor("#DEDB7C");
-            Button btnDelete = new Button(VaadinIcon.TRASH.create(), e  -> deleteUser(user.getId()));
-            btnDelete.addThemeVariants(ButtonVariant.LUMO_ERROR)
-            ;
-            HorizontalLayout group = new HorizontalLayout();
-            group.setPadding(true);
-            group.add(btnModify,btnDelete);
+            Button btnModify = new Button(VaadinIcon.PENCIL.create(),
+                    e -> openUserDialog(user));
+            btnModify.addThemeVariants( ButtonVariant.LUMO_TERTIARY);
+
+            Button btnDelete = new Button(VaadinIcon.TRASH.create(),
+                    e  -> deleteUser(user.getId()));
+            btnDelete.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+            HorizontalLayout group = new HorizontalLayout(btnModify,btnDelete);
+            group.setSpacing(true);
             return group;
         }).setHeader("Actions").setTextAlign(ColumnTextAlign.CENTER);
-        return grid;
     }
 
     private void deleteUser(Long userId) {

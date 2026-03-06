@@ -2,6 +2,7 @@ package com.example.vaadin_project.ui.views;
 
 import com.example.vaadin_project.backend.dto.CreateUserDTO;
 import com.example.vaadin_project.backend.service.UserService;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -9,7 +10,9 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -45,17 +48,13 @@ public class RegisterView extends VerticalLayout {
         Button registerButton = new Button("Register", e -> onRegister());
         registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        Anchor loginLink = new Anchor("/login", "Already have an account? Login here");
-
+        Anchor loginLink = new Anchor("/login", "Login here");
+        Text text = new Text("Already have an account?");
         FormLayout form = new FormLayout(name, lastname, birthday, email, password, confirmPassword);
         form.setMaxWidth("500px");
         form.setWidth("100%");
         form.getStyle().set("margin", "0 auto");
-
-        form.setResponsiveSteps(
-                new FormLayout.ResponsiveStep("0", 1, FormLayout.ResponsiveStep.LabelsPosition.TOP),
-                new FormLayout.ResponsiveStep("490px", 2, FormLayout.ResponsiveStep.LabelsPosition.TOP));
-        add(title, form, registerButton, loginLink);
+        add(title, form, registerButton, new HorizontalLayout(text,loginLink));
     }
 
     private void setupBinder() {
@@ -84,14 +83,16 @@ public class RegisterView extends VerticalLayout {
     private void onRegister() {
 
         if (!password.getValue().equals(confirmPassword.getValue())) {
-            Notification.show("Passwords do not match");
+            Notification.show("Passwords do not match")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
             return;
         }
 
         CreateUserDTO dto = new CreateUserDTO();
         if (binderRegister.writeBeanIfValid(dto)) {
             userService.create(dto);
-            Notification.show("User registered successfully");
+            Notification.show("User registered successfully")
+                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             getUI().ifPresent(ui -> ui.navigate("login"));
         }
     }

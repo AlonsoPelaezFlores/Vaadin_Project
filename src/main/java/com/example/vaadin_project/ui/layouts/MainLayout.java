@@ -24,11 +24,10 @@ public class MainLayout extends AppLayout {
 
         DrawerToggle drawer = new DrawerToggle();
         HorizontalLayout header = getHeader();
+
         UserProfileDTO user = userService.getCurrentUserDTO();
         boolean isAdmin = user.getRole().name().equals("ADMIN");
-
         SideNav nav;
-
         if (isAdmin){
             nav = buildAdminMenu();
         }else {
@@ -36,7 +35,6 @@ public class MainLayout extends AppLayout {
         }
 
         Scroller scroller = new Scroller(nav);
-
         addToDrawer(scroller);
         addToNavbar(drawer, header);
 
@@ -49,7 +47,7 @@ public class MainLayout extends AppLayout {
                 new SideNavItem("Home","user",
                 VaadinIcon.USER.create()));
         nav.addItem(
-                new SideNavItem("Admin", "admin",
+                new SideNavItem("Dashboard", "admin",
                         VaadinIcon.DASHBOARD.create()));
 
         return nav;

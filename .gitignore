@@ -2,6 +2,16 @@ node_modules
 HELP.md
 target/
 src/main/frontend/
+src/main/bundles/
+package.json
+package-lock.json
+tsconfig.json
+types.d.ts
+vite.config.ts
+vite.generated.ts
+hs_err_pid*.log
+replay_pid*.log
+
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
