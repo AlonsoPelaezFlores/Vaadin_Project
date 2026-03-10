@@ -1,0 +1,79 @@
+.card-container{
+    box-shadow: 0 3px 10px #7697BE29;
+    border: 1px solid #E9ECF6;
+    padding: 1rem;
+    border-radius: 5px;
+    background: white;
+}
+.btn-add {
+    color: white;
+    background: #8B2332;
+}
+.btn-group{
+    gap: 4px;
+}
+.btn-edit,
+.btn-delete {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    margin: 0;
+    padding: 0;
+}
+.form-base-vertical vaadin-form-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+vaadin-form-item::part(label) {
+    white-space: nowrap;
+    font-weight: 600;
+    color: black;
+ }
+.tab-cass{
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 3px 10px #7697BE29;
+    border: 1px solid #E9ECF6;
+    border-radius: 5px;
+    background: white;
+    letter-spacing: -0.32px;
+}
+vaadin-tabsheet::part(tabs) {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+vaadin-tabsheet::part(tabs-container) {
+    background-color: #F5F5F5 !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+vaadin-tab {
+    font-weight: bold;
+    background-color: #F5F5F5 !important;
+    color: black !important;
+    border: none !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-right: 2px;
+    padding: 0 16px !important;
+}
+
+vaadin-tab[selected] {
+    background-color: white !important;
+    color: #8B2332 !important;
+    border-bottom: 2px solid white !important;
+}
+
+vaadin-tab:focus,
+vaadin-tab[selected]:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+vaadin-tabsheet::part(content) {
+    background-color: white;
+}
