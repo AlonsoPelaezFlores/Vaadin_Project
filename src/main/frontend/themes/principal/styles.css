@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+html {
+
+    --lumo-font-family: 'Plus Jakarta Sans', sans-serif;
+
+    --lumo-primary-color:          #0e7490;
+    --lumo-primary-color-50pct:    rgba(14, 116, 144, 0.5);
+    --lumo-primary-color-10pct:    rgba(14, 116, 144, 0.1);
+    --lumo-primary-contrast-color: #ffffff;
+
+    --lumo-header-text-color:    #000000;
+    --lumo-body-text-color:      #475569;
+    --lumo-secondary-text-color: #78909c;
+    --lumo-disabled-text-color:  rgba(71, 85, 105, 0.38);
+
+    --lumo-base-color:   #ffffff;
+    --lumo-shade-5pct:   rgba(15, 23, 42, 0.05);
+    --lumo-shade-10pct:  rgba(15, 23, 42, 0.10);
+
+    --lumo-border-radius-s: 4px;
+    --lumo-border-radius-m: 8px;
+    --lumo-border-radius-l: 16px;
+
+    --lumo-error-color:         #dc2626;
+    --lumo-error-color-50pct:   rgba(220, 38, 38, 0.5);
+    --lumo-error-color-10pct:   rgba(220, 38, 38, 0.1);
+    --lumo-success-color:       #16a34a;
+    --lumo-success-color-50pct: rgba(22, 163, 74, 0.5);
+    --lumo-success-color-10pct: rgba(22, 163, 74, 0.1);
+    --lumo-warning-color:       #d97706;
+    --lumo-warning-color-50pct: rgba(217, 119, 6, 0.5);
+    --lumo-warning-color-10pct: rgba(217, 119, 6, 0.1);
+
+    --vaadin-input-field-background: #ffffff;
+}
+
+body {
+    background-color: #f1f5f9;
+}
+
+.btn-edit:hover {
+    background: rgba(14, 116, 144, 0.10) !important;
+    transform: scale(1.1);
+}
+
+.btn-delete:hover {
+    background: rgba(220, 38, 38, 0.10) !important;
+    transform: scale(1.1);
+}

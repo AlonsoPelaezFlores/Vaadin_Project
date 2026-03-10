@@ -1,7 +1,7 @@
 node_modules
 HELP.md
 target/
-src/main/frontend/
+src/main/frontend/generated/
 src/main/bundles/
 package.json
 package-lock.json
