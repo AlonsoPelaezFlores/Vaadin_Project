@@ -19,9 +19,6 @@ import com.vaadin.flow.server.menu.MenuEntry;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import java.util.List;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 @Layout
 @AnonymousAllowed
 public class MainLayout extends AppLayout implements AfterNavigationObserver {
